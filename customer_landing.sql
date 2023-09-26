@@ -17,5 +17,5 @@ WITH SERDEPROPERTIES (
   'mapping' = 'TRUE'
 )
 STORED AS INPUTFORMAT 'org.apache.hadoop.mapred.TextInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
-LOCATION 's3://katya-spark-stedi-lakehouse/customer/landing/'
+LOCATION 's3://katya-spark-stedi-lake-house/customer/landing/'
 TBLPROPERTIES ('classification' = 'json');
