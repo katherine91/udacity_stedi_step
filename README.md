@@ -7,3 +7,4 @@ copy data to landing zone
 accelerometer: aws s3 cp ./accelerometer s3://katya-spark-stedi-lakehouse/accelerometer/landing/ --recursive
 customer: aws s3 cp ./customer s3://katya-spark-stedi-lakehouse/customer/landing/ --recursive
 step_trainer: aws s3 cp ./step_trainer s3://katya-spark-stedi-lakehouse/step_trainer/landing/ --recursive
+create tables in Athena from S3 sources accelerometer/landing/ and customer/landing and save scripts
