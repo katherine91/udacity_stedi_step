@@ -9,3 +9,4 @@ customer: aws s3 cp ./customer s3://katya-spark-stedi-lake-house/customer/landin
 step_trainer: aws s3 cp ./step_trainer s3://katya-spark-stedi-lake-house/step_trainer/landing/ --recursive
 create tables in Athena from S3 sources accelerometer/landing/ and customer/landing and save scripts
 make screenshot of query result
+create job source customer/landing transformation - filter on shareWithResearchAsOfDate column != 0 target customer/trusted
