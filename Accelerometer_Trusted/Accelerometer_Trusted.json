@@ -1,0 +1,39 @@
+{
+  "name" : "Accelerometer_Trusted",
+  "description" : "",
+  "role" : "arn:aws:iam::643427809315:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-643427809315-us-east-1/scripts/Accelerometer_Trusted.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-643427809315-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-643427809315-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1695813577468\":{\"DropFields\":{\"Inputs\":[\"node-1695813588739\"],\"Name\":\"Drop Fields\",\"Paths\":[[\"customerName\"],[\"email\"],[\"phone\"],[\"birthDay\"],[\"serialNumber\"],[\"registrationDate\"],[\"lastUpdateDate\"],[\"shareWithResearchAsOfDate\"],[\"shareWithPublicAsOfDate\"],[\"shareWithFriendsAsOfDate\"]]}},\"node-1695813473676\":{\"Join\":{\"Columns\":[{\"From\":\"node-1\",\"Keys\":[[\"email\"]]},{\"From\":\"node-1695813381017\",\"Keys\":[[\"user\"]]}],\"Inputs\":[\"node-1\",\"node-1695813381017\"],\"JoinType\":\"equijoin\",\"Name\":\"Join\"}},\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/customer/landing/customer-keep-1655293787679.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Customer_Landing\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/customer/landing/\"],\"Recurse\":true}},\"node-1695813381017\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/accelerometer/landing/accelerometer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Accelerometer_Landing\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"user\",\"Type\":\"string\"},{\"Name\":\"timeStamp\",\"Type\":\"bigint\"},{\"Name\":\"x\",\"Type\":\"double\"},{\"Name\":\"y\",\"Type\":\"double\"},{\"Name\":\"z\",\"Type\":\"double\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/accelerometer/landing/\"],\"Recurse\":true}},\"node-2\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1695813577468\"],\"Name\":\"Accelerometer_Trusted\",\"PartitionKeys\":[],\"Path\":\"s3://katya-spark-stedi-lake-house/accelerometer/trusted/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1695813588739\":{\"Filter\":{\"Filters\":[{\"Negated\":true,\"Operation\":\"EQ\",\"Values\":[{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"shareWithResearchAsOfDate\"]},{\"Type\":\"CONSTANT\",\"Value\":[\"0\"]}]}],\"Inputs\":[\"node-1695813473676\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "udacity_stedi_step",
+    "branch" : "main",
+    "folder" : "Accelerometer_Trusted"
+  }
+}
