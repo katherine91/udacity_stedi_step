@@ -10,3 +10,8 @@
 #### create tables in Athena from S3 sources accelerometer/landing/ and customer/landing and save scripts
 #### make screenshot of query result
 #### create job source customer/landing transformation - filter on shareWithResearchAsOfDate column != 0 target customer/trusted
+#### create job accelerometer_trusted
+#### make customer_trusted table screenshot
+#### create customer_curated job
+#### create step_trainer_trusted job
+#### create machine_learning_curated job
