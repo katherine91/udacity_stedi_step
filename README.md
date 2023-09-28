@@ -1,5 +1,5 @@
 # udacity_stedi_step
-Navigate to AWS CloudShell
+#Navigate to AWS CloudShell#
 git clone https://github.com/udacity/nd027-Data-Engineering-Data-Lakes-AWS-Exercises.git
 navigate to project/starter
 make s3 bucket aws s3 ls s3://katya-spark-stedi-lake-house/
