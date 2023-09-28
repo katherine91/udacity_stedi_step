@@ -1,0 +1,39 @@
+{
+  "name" : "machine_learning_curated",
+  "description" : "",
+  "role" : "arn:aws:iam::643427809315:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-643427809315-us-east-1/scripts/machine_learning_curated.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-643427809315-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-643427809315-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1695891643972\":{\"Join\":{\"Columns\":[{\"From\":\"node-1695891420608\",\"Keys\":[[\"serialNumber\"],[\"timeStamp\"]]},{\"From\":\"node-1695891570140\",\"Keys\":[[\"serialNumber\"],[\"sensorReadingTime\"]]}],\"Inputs\":[\"node-1695891420608\",\"node-1695891570140\"],\"JoinType\":\"equijoin\",\"Name\":\"Join\"}},\"node-1695892352303\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1695892265463\"],\"Name\":\"machine_learning_curated\",\"PartitionKeys\":[],\"Path\":\"s3://katya-spark-stedi-lake-house/machine_learning_curated/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1695891570140\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/step_trainer/landing/step_trainer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Step_trainer_landing\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"sensorReadingTime\",\"Type\":\"bigint\"},{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"distanceFromObject\",\"Type\":\"int\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/step_trainer/landing/\"],\"Recurse\":true}},\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/customer/trusted/run-1695743134759-part-r-00000\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Customer_Trusted\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/customer/trusted/\"],\"Recurse\":true}},\"node-1695891349379\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/accelerometer/landing/accelerometer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Accelerometer_Landing\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"user\",\"Type\":\"string\"},{\"Name\":\"timeStamp\",\"Type\":\"bigint\"},{\"Name\":\"x\",\"Type\":\"double\"},{\"Name\":\"y\",\"Type\":\"double\"},{\"Name\":\"z\",\"Type\":\"double\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/accelerometer/landing/\"],\"Recurse\":true}},\"node-1695892265463\":{\"DropDuplicates\":{\"Columns\":[],\"Inputs\":[\"node-1695892187616\"],\"Name\":\"Drop Duplicates\"}},\"node-1695892187616\":{\"DropFields\":{\"Inputs\":[\"node-1695891643972\"],\"Name\":\"Drop Fields\",\"Paths\":[[\"shareWithPublicAsOfDate\"],[\"birthDay\"],[\"registrationDate\"],[\"shareWithResearchAsOfDate\"],[\"customerName\"],[\"email\"],[\"lastUpdateDate\"],[\"phone\"],[\"shareWithFriendsAsOfDate\"],[\".serialNumber\"]]}},\"node-1695891420608\":{\"Join\":{\"Columns\":[{\"From\":\"node-1\",\"Keys\":[[\"email\"]]},{\"From\":\"node-1695891349379\",\"Keys\":[[\"user\"]]}],\"Inputs\":[\"node-1\",\"node-1695891349379\"],\"JoinType\":\"equijoin\",\"Name\":\"Cust_Accel_Join\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "udacity_stedi_step",
+    "branch" : "main",
+    "folder" : "machine_learning_curated"
+  }
+}
