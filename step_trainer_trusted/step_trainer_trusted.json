@@ -1,0 +1,39 @@
+{
+  "name" : "step_trainer_trusted",
+  "description" : "",
+  "role" : "arn:aws:iam::643427809315:role/my-glue-service-role",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-643427809315-us-east-1/scripts/step_trainer_trusted.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-643427809315-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-643427809315-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1695883932352\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-1695883840020\"],\"Name\":\"Step_trainer_trusted\",\"PartitionKeys\":[],\"Path\":\"s3://katya-spark-stedi-lake-house/step_trainer/trusted/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}},\"node-1695883326489\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/step_trainer/landing/step_trainer-1655296678763.json\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"Step_trainer_landing\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"sensorReadingTime\",\"Type\":\"bigint\"},{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"distanceFromObject\",\"Type\":\"int\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/step_trainer/landing/\"],\"Recurse\":true}},\"node-1\":{\"S3JsonSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://katya-spark-stedi-lake-house/customer/curated/run-1695881918709-part-r-00000\"},\"Exclusions\":[],\"JsonPath\":\"\",\"Multiline\":false,\"Name\":\"CustomerCurated\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"serialNumber\",\"Type\":\"string\"},{\"Name\":\"birthDay\",\"Type\":\"string\"},{\"Name\":\"shareWithPublicAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"shareWithResearchAsOfDate\",\"Type\":\"bigint\"},{\"Name\":\"registrationDate\",\"Type\":\"bigint\"},{\"Name\":\"customerName\",\"Type\":\"string\"},{\"Name\":\"email\",\"Type\":\"string\"},{\"Name\":\"lastUpdateDate\",\"Type\":\"bigint\"},{\"Name\":\"phone\",\"Type\":\"string\"},{\"Name\":\"shareWithFriendsAsOfDate\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://katya-spark-stedi-lake-house/customer/curated/\"],\"Recurse\":true}},\"node-1695883840020\":{\"DropFields\":{\"Inputs\":[\"node-1695883780786\"],\"Name\":\"Drop Fields\",\"Paths\":[[\"birthDay\"],[\"shareWithPublicAsOfDate\"],[\"shareWithResearchAsOfDate\"],[\"registrationDate\"],[\"customerName\"],[\"email\"],[\"lastUpdateDate\"],[\"phone\"],[\"shareWithFriendsAsOfDate\"],[\".serialNumber\"]]}},\"node-1695883780786\":{\"Join\":{\"Columns\":[{\"From\":\"node-1695883667973\",\"Keys\":[[\"serialNumber\"]]},{\"From\":\"node-1695883326489\",\"Keys\":[[\"serialNumber\"]]}],\"Inputs\":[\"node-1695883667973\",\"node-1695883326489\"],\"JoinType\":\"equijoin\",\"Name\":\"Join\"}},\"node-1695883667973\":{\"DropDuplicates\":{\"Columns\":[[\"serialNumber\"]],\"Inputs\":[\"node-1\"],\"Name\":\"Drop Duplicates\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "udacity_stedi_step",
+    "branch" : "main",
+    "folder" : "step_trainer_trusted"
+  }
+}
